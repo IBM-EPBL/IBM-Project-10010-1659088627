@@ -1,55 +1,72 @@
-const int echoPin=2, triggerPin=3, red=4, green=5, blue=6;
-const int buzz = 7;
-int pulseValue;
-float distance;
+#traffic light for raspberry pi simlulating in pycham with GUI
+import turtle
+import time
+wn= turtle.getscreen()
+wn.title("Stoplight By Gogulkrish")
+wn.bgcolor("black")
 
-void setup( ) {
-pinMode(echoPin, INPUT);
-pinMode(triggerPin, OUTPUT);
-pinMode(red, OUTPUT);
-pinMode(green, OUTPUT);
-pinMode(blue, OUTPUT);
-pinMode(buzz, OUTPUT);
-Serial.begin(9600);
-}
-
-void loop( )
-{
- 
-digitalWrite(triggerPin, LOW);
-delayMicroseconds(5);
-digitalWrite(triggerPin, HIGH);
-delayMicroseconds(10);
-pulseValue=pulseIn(echoPin, HIGH);
-distance=(pulseValue*0.0001657*39.37);
- 
+#gui interfrace
+pen= turtle.Turtle()
+pen.color("Yellow")
+pen.width(4)
+pen.hideturtle()
+pen.penup()
+pen.goto(-30, 60)
+pen.pendown()
+pen.fd(60)
+pen.rt(90)
+pen.fd(120)
+pen.rt(90)
+pen.fd(60)
+pen.rt(90)
+pen.fd(120)
 
 
-if (distance<=5)
-{
-  digitalWrite(red, HIGH);
-  digitalWrite(green, LOW);
-  digitalWrite(blue, LOW);
-  tone(buzz, 500);
-}
- 
-else if (distance<=10)
-{
-  digitalWrite(green, HIGH);
-  digitalWrite(red, LOW);
-  digitalWrite(blue, LOW);
-  tone(buzz, 1000);
-}
 
-else 
-{
-  digitalWrite(blue, HIGH);
-  digitalWrite(red, LOW);
-  digitalWrite(green, LOW);
-  tone(buzz, 1500);
-}
- 
-Serial.print(distance);
-Serial.println(" inch/es");
-delay(500);
-}
+#red light
+red_light =turtle.Turtle()
+red_light.shape("circle")
+red_light.color("grey")
+red_light.penup()
+red_light.goto(0, 40)
+
+#Yellow light
+yellow_light =turtle.Turtle()
+yellow_light.shape("circle")
+yellow_light.color("grey")
+yellow_light.penup()
+yellow_light.goto(0, 0)
+
+#Green light
+green_light =turtle.Turtle()
+green_light.shape("circle")
+
+green_light.color("grey")
+green_light.penup()
+green_light.goto(0, -40)
+
+
+while True:
+    yellow_light.color("grey")
+    red_light.color("red")
+    print("Red light Blinked - Now vehicle Stop behind zebra cross..")
+    print("Blink!!")
+    time.sleep(2)
+    print("Blink!!")
+
+    red_light.color("grey")
+    green_light.color("green")
+    print("Green light on- Now vehicle can go..")
+    print("Blink!!")
+    time.sleep(3)
+    print("Blink!!")
+
+    green_light.color("grey")
+    yellow_light.color("yellow")
+    print("Yellow light Blinked- Now vehicle Ready to go..")
+    print("Blink!!")
+    time.sleep(1)
+    print("Blink!!")
+
+
+wn.mainloop()
